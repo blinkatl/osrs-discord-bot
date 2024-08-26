@@ -22,20 +22,23 @@ module.exports = {
                 .setDescription('Change name (optional)')),
     async autocomplete(interaction) {
         const focusedOption = interaction.options.getFocused(true);
-
+    
         if (focusedOption.name === 'chathead') {
-            const filtered = choices.filter(choice => choice.includes(focusedOption.value));
+            const filtered = choices.filter(choice => 
+                choice.toLowerCase().includes(focusedOption.value.toLowerCase())
+            );
+        
             const options = filtered.length > 25 ? filtered.slice(0, 25) : filtered;
 
             await interaction.respond(
-                options.map(choice => ({ name: choice, value: choice }))
+                options.map(choice => ({ name: choice.replace(/_/g, ' '), value: choice }))
             );
         }
     },
     async execute(interaction) {
         const chathead = interaction.options.getString('chathead');
         const dialogue = interaction.options.getString('dialogue');
-        const name = interaction.options.getString('name') ?? '';
+        const name = interaction.options.getString('name') || chathead.replace(/_/g, ' ');
 
         try {
             const response = await fetch('http://localhost:3000/generate', {
