@@ -57,12 +57,12 @@ module.exports = {
                 body: JSON.stringify({ chathead, dialogue, name, removePrompt }),
             });
 
-            const arrayBuffer = await response.arrayBuffer(); // Get the binary image data as ArrayBuffer
-            const buffer = Buffer.from(arrayBuffer); // Convert ArrayBuffer to Node.js Buffer
+            const arrayBuffer = await response.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
             const attachment = {
                 files: [{ attachment: buffer, name: 'textbox.png' }],
             };
-            await interaction.reply({ content: 'Here is your custom chat textbox:', ...attachment });
+            await interaction.reply(attachment);
         } catch (error) {
             console.error('Fetch error:', error);
             await interaction.reply('An error occurred while generating the custom chat textbox.');
