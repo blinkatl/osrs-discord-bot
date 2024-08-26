@@ -32,7 +32,7 @@ module.exports = {
     
         if (focusedOption.name === 'chathead') {
             const filtered = choices.filter(choice => 
-                choice.toLowerCase().includes(focusedOption.value.toLowerCase())
+                choice.toLowerCase().includes(focusedOption.value.replace(/ /g, '_').toLowerCase())
             );
         
             const options = filtered.length > 25 ? filtered.slice(0, 25) : filtered;
