@@ -19,7 +19,14 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('name')
-                .setDescription('Change name (optional)')),
+                .setDescription('Change default name (optional)'))
+        .addStringOption(option =>
+            option.setName('removeprompt')
+                .setDescription(`Remove 'click here to continue prompt' (optional)`)
+                .addChoices(
+                    { name: 'Yes, remove prompt', value: 'true' },
+                    { name: 'No, keep prompt', value: 'false' },
+                )),
     async autocomplete(interaction) {
         const focusedOption = interaction.options.getFocused(true);
     
@@ -39,6 +46,7 @@ module.exports = {
         const chathead = interaction.options.getString('chathead');
         const dialogue = interaction.options.getString('dialogue');
         const name = interaction.options.getString('name') || chathead.replace(/_/g, ' ');
+        const removePrompt = interaction.options.getString('removeprompt') === 'true';
 
         try {
             const response = await fetch('http://localhost:3000/generate', {
@@ -46,7 +54,7 @@ module.exports = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ chathead, dialogue, name }),
+                body: JSON.stringify({ chathead, dialogue, name, removePrompt }),
             });
 
             const arrayBuffer = await response.arrayBuffer(); // Get the binary image data as ArrayBuffer
