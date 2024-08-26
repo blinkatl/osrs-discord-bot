@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { Buffer } = require('buffer');
+const fs = require('fs');
+const path = require('path');
+const choices = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'modifiedNames.json')));
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,7 +11,8 @@ module.exports = {
         .addStringOption(option =>
             option.setName('chathead')
                 .setDescription('NPC/pet/player name')
-                .setRequired(true))
+                .setRequired(true)
+                .setAutocomplete(true))
         .addStringOption(option =>
             option.setName('dialogue')
                 .setDescription('Set dialogue')
@@ -16,6 +20,18 @@ module.exports = {
         .addStringOption(option =>
             option.setName('name')
                 .setDescription('Change name (optional)')),
+    async autocomplete(interaction) {
+        const focusedOption = interaction.options.getFocused(true);
+
+        if (focusedOption.name === 'chathead') {
+            const filtered = choices.filter(choice => choice.includes(focusedOption.value));
+            const options = filtered.length > 25 ? filtered.slice(0, 25) : filtered;
+
+            await interaction.respond(
+                options.map(choice => ({ name: choice, value: choice }))
+            );
+        }
+    },
     async execute(interaction) {
         const chathead = interaction.options.getString('chathead');
         const dialogue = interaction.options.getString('dialogue');
