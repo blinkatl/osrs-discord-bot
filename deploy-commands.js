@@ -44,3 +44,13 @@ const rest = new REST().setToken(token);
 		console.error(error);
 	}
 })();
+
+// For deleting guild-based commands, replace commandId
+// rest.delete(Routes.applicationGuildCommand(clientId, guildId, 'commandId'))
+// 	.then(() => console.log('Successfully deleted guild command'))
+// 	.catch(console.error);
+
+// For deleting global commands, replace commandId
+rest.delete(Routes.applicationCommand(clientId, 'commandId'))
+	.then(() => console.log('Successfully deleted application command'))
+	.catch(console.error);
