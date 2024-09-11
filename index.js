@@ -38,4 +38,4 @@ for (const file of eventFiles) {
 	}
 }
 
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
