@@ -49,7 +49,7 @@ module.exports = {
         const removePrompt = interaction.options.getString('removeprompt') === 'true';
 
         try {
-            const response = await fetch('http://localhost:3000/generate', {
+            const response = await fetch('https://osrs-chat-generator.adaptable.app/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
