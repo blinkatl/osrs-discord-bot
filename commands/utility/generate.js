@@ -3,6 +3,7 @@ const { Buffer } = require('buffer');
 const fs = require('fs');
 const path = require('path');
 const choices = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'modifiedNames.json')));
+const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -49,6 +50,7 @@ module.exports = {
         const removePrompt = interaction.options.getString('removeprompt') === 'true';
 
         try {
+            await interaction.deferReply();
             const response = await fetch('https://osrs-chat-generator.adaptable.app/generate', {
                 method: 'POST',
                 headers: {
@@ -57,12 +59,16 @@ module.exports = {
                 body: JSON.stringify({ chathead, dialogue, name, removePrompt }),
             });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error status: ${response.status}`);
+            }
+
             const arrayBuffer = await response.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
             const attachment = {
                 files: [{ attachment: buffer, name: 'textbox.png' }],
             };
-            await interaction.reply(attachment);
+            await interaction.editReply(attachment);
         } catch (error) {
             console.error('Fetch error:', error);
             await interaction.reply('An error occurred while generating the custom chat textbox.');
