@@ -71,7 +71,7 @@ module.exports = {
             await interaction.editReply(attachment);
         } catch (error) {
             console.error('Fetch error:', error);
-            await interaction.reply('An error occurred while generating the custom chat textbox.');
+            await interaction.editReply('An error occurred while generating the custom chat textbox.');
         }
     }
 };

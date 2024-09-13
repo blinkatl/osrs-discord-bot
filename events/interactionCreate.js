@@ -16,11 +16,7 @@ module.exports = {
                     await command.autocomplete(interaction);
                 } catch (error) {
                     console.error(error);
-                    if (interaction.replied || interaction.deferred) {
-                        await interaction.followUp({ content: 'There was an error while handling autocomplete!', ephemeral: true });
-                    } else {
-                        await interaction.reply({ content: 'There was an error while handling autocomplete!', ephemeral: true });
-                    }
+                    await interaction.respond([{ name: 'There was an error handling autocomplete.', value: '' }]);
                 }
             }
             return;
