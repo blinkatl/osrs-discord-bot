@@ -1,5 +1,5 @@
 {
-  "name": "discord-bot",
+  "name": "osrs-discord-bot",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
   "description": "",
   "dependencies": {
     "discord.js": "^14.15.3",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0"
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.8"
   }
 }

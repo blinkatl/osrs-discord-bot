@@ -1,24 +1,7 @@
-// Require the necessary discord.js classes
 require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-//const { token } = require('./config.json');
-// START code required for http server for cloud services like adaptable.io (herooku does not need)
-const express = require('express');
-const app = express();
-
-// Start an HTTP server on port 80 or the port Adaptable.io assigns
-const port = process.env.PORT || 80;
-
-app.get('/', (req, res) => {
-  res.send('Discord bot is running!');
-});
-
-app.listen(port, '0.0.0.0', () => {
-  console.log(`HTTP server listening on port ${port}`);
-});
-// END code
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 

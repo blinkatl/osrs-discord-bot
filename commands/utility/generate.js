@@ -3,7 +3,6 @@ const { Buffer } = require('buffer');
 const fs = require('fs');
 const path = require('path');
 const choices = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'modifiedNames.json')));
-const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
     data: new SlashCommandBuilder()
