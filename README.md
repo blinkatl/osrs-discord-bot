@@ -5,6 +5,17 @@
 
 ## About
 
+Create a custom Old School Runescape chatbox with any text you want and any of the 6000+ NPC chatheads in the game.
+Full site available here: https://old-school-runescape-chat-generator.vercel.app/
+
+Features
+- Chathead input acts as a search bar to help you find the NPC you want
+- Rename the NPC name to anything of your choice
+- Remove the "Click here to continue" prompt
+
+Commands:
+- /generate [chathead] [dialogue] [name] [removeprompt]
+
 This project is an OSRS discord bot created by blinkatl. All artwork used in this project is owned by Jagex and is included under fair use. This project is for non-commercial, fan-made purposes only.
 
 ## License
